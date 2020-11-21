@@ -19,6 +19,7 @@ const useStyles = makeStyles({
     },
     link: {
         textTransform: "uppercase",
+        fontWeight: 'bold'
     }
 });
 

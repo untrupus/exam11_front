@@ -49,6 +49,7 @@ const ProductDetail = props => {
         dispatch(deleteProduct(props.match.params.id));
     };
 
+    console.log(user);
     return (
         <Container className={classes.product}>
             {product &&

@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import {Link as RouterLink} from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
 const drawerWidth = 240;
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '30px',
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: "space-between",
+        justifyContent: "space-around",
         width: '70%'
     },
     root: {
