@@ -29,15 +29,18 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        display: 'block',
+        margin: theme.spacing(3, "auto", 2),
+        padding: "15px",
+        width: "100%"
     },
     login: {
         marginLeft: 'auto',
         marginRight: 'auto'
     },
     formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
+        marginTop: theme.spacing(1),
+        width: '100%',
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -155,6 +158,7 @@ const PostForm = () => {
                             <MenuItem value="Cars">Cars</MenuItem>
                             <MenuItem value="Computers">Computers</MenuItem>
                             <MenuItem value="Clothes">Clothes</MenuItem>
+                            <MenuItem value="Guns">Guns</MenuItem>
                         </Select>
                     </FormControl>
                     <Button

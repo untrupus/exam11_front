@@ -4,7 +4,8 @@ import {
     FETCH_PRODUCTS_ERROR,
     FETCH_PRODUCTS_SUCCESS,
     ADD_PRODUCT_ERROR,
-    ADD_PRODUCT_SUCCESS
+    FETCH_PRODUCT_ERROR,
+    FETCH_PRODUCT_SUCCESS
 } from "../actionTypes";
 
 import axiosAPI from "../../axiosAPI";
@@ -20,7 +21,7 @@ const fetchProductsError = error => {
 export const fetchProducts = () => {
     return async dispatch => {
         try {
-            const response = await axiosAPI.get("posts");
+            const response = await axiosAPI.get("products");
             dispatch(fetchProductsSuccess(response.data));
         } catch (e) {
             dispatch(fetchProductsError(e));
@@ -43,6 +44,25 @@ export const addProduct = (data) => {
             dispatch(push("/"));
         } catch (e) {
             dispatch(addProductError(e.response.data));
+        }
+    };
+};
+
+const fetchProductSuccess = value => {
+    return {type: FETCH_PRODUCT_SUCCESS, value};
+};
+
+const fetchProductError = error => {
+    return {type: FETCH_PRODUCT_ERROR, error};
+};
+
+export const fetchProduct = (id) => {
+    return async dispatch => {
+        try {
+            const response = await axiosAPI.get("products/" + id);
+            dispatch(fetchProductSuccess(response.data));
+        } catch (e) {
+            dispatch(fetchProductError(e));
         }
     };
 };
