@@ -5,7 +5,8 @@ import {
     FETCH_PRODUCTS_SUCCESS,
     ADD_PRODUCT_ERROR,
     FETCH_PRODUCT_ERROR,
-    FETCH_PRODUCT_SUCCESS
+    FETCH_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_ERROR
 } from "../actionTypes";
 
 import axiosAPI from "../../axiosAPI";
@@ -18,10 +19,10 @@ const fetchProductsError = error => {
     return {type: FETCH_PRODUCTS_ERROR, error};
 };
 
-export const fetchProducts = () => {
+export const fetchProducts = (cat) => {
     return async dispatch => {
         try {
-            const response = await axiosAPI.get("products");
+            const response = await axiosAPI.get("products?category=" + cat);
             dispatch(fetchProductsSuccess(response.data));
         } catch (e) {
             dispatch(fetchProductsError(e));
@@ -66,3 +67,20 @@ export const fetchProduct = (id) => {
         }
     };
 };
+const deleteProductError = error => {
+    return {type: DELETE_PRODUCT_ERROR, error};
+};
+
+export const deleteProduct = (id) => {
+    return async (dispatch, getState) => {
+        const headers = {
+            "Authorization": getState().users.user && getState().users.user.user.token
+        };
+        try {
+            await axiosAPI.delete("products/" + id, {headers});
+            dispatch(push("/"));
+        } catch (e) {
+            dispatch(deleteProductError(e));
+        }
+    }
+}

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Container from "@material-ui/core/Container";
 import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from '@material-ui/core/styles';
-import {fetchProduct} from "../../store/actions/productsActions";
+import {fetchProduct, deleteProduct} from "../../store/actions/productsActions";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 
@@ -23,15 +23,8 @@ const useStyles = makeStyles(() => ({
     info: {
         marginTop: "15px",
         padding: '10px',
-        textAlign: 'left'
-    },
-    field: {
-        width: "65%"
-    },
-    btn: {
-        width: "30%",
-        padding: "17px",
-        marginTop: "5px"
+        textAlign: 'left',
+        marginBottom: "15px"
     },
     submit: {
         display: 'block',
@@ -50,35 +43,39 @@ const ProductDetail = props => {
 
     useEffect(() => {
         dispatch(fetchProduct(props.match.params.id));
-    }, [dispatch]);
+    }, [dispatch, props.match.params.id]);
 
+    const remove = () => {
+        dispatch(deleteProduct(props.match.params.id));
+    };
 
     return (
         <Container className={classes.product}>
-            <h1>{product.title}</h1>
-            <img src={product.image ?
-                'http://localhost:8000/uploads/' + product.image :
-                "https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png"}
-                 alt="product"
-                 className={classes.img}/>
-            <Paper elevation={3} className={classes.info}>
-                <p>Description: {product.description}</p>
-                <p>Price: <b>{product.price}</b></p>
-                <p>Category: {product.category}</p>
-                <p>Seller: {product.user.displayName}</p>
-                {/*<p>Phone: {product.user.phone}</p>*/}
-            </Paper>
-            {/*{(user._id === product.user._id) ?*/}
-            {/*    <Button*/}
-            {/*    type="submit"*/}
-            {/*    variant="contained"*/}
-            {/*    color="primary"*/}
-            {/*    className={classes.submit}*/}
-            {/*    >*/}
-            {/*    Delete*/}
-            {/*    </Button> : null*/}
-            {/*}*/}
-
+            {product &&
+            <div>
+                <h1>{product.title}</h1>
+                <img src={product.image ?
+                    'http://localhost:8000/uploads/' + product.image :
+                    "https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png"}
+                     alt="product"
+                     className={classes.img}/>
+                <Paper elevation={3} className={classes.info}>
+                    <p>Description: {product.description}</p>
+                    <p>Price: <b>{product.price}</b></p>
+                    <p>Category: {product.category}</p>
+                    <p>Seller: {product.user.displayName}</p>
+                    <p>Phone: {product.user.phone}</p>
+                </Paper>
+            </div>}
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={remove}
+            >
+                Delete
+            </Button>
         </Container>
     );
 };

@@ -3,21 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from '@material-ui/core/styles';
 import SingleProduct from "../../components/SingleProoduct/SingleProduct";
 import {fetchProducts} from "../../store/actions/productsActions";
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import {Link as RouterLink} from "react-router-dom";
 import Link from "@material-ui/core/Link";
-
 
 const drawerWidth = 240;
 
@@ -50,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    product: {
+        cursor: "pointer"
+    }
 }));
 
 const Products = () => {
@@ -58,9 +52,12 @@ const Products = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchProducts());
+        dispatch(fetchProducts(''));
     }, [dispatch]);
 
+    const category = (cat) => {
+        dispatch(fetchProducts(cat));
+    }
 
     const productList = products.map(product => {
         return (
@@ -79,28 +76,38 @@ const Products = () => {
     return (
         <div className={classes.root}>
 
-                <Toolbar />
-                <div className={classes.drawerContainer}>
-                    <h4>Categories</h4>
-                    <List>
-                        <ListItem>
-                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
-                        </ListItem>
-                    </List>
-                    <Divider />
-                </div>
+            <Toolbar/>
+            <div className={classes.drawerContainer}>
+                <h4>Categories</h4>
+                <List>
+                    <ListItem>
+                        <Link className={classes.product}
+                              onClick={() => category('')}
+                        >All categories</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className={classes.product}
+                              onClick={() => category("cars")}
+                        >Cars</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className={classes.product}
+                              onClick={() => category("guns")}
+                        >Guns</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className={classes.product}
+                              onClick={() => category("computers")}
+                        >Computers</Link>
+                    </ListItem>
+                    <ListItem>
+                        <Link className={classes.product}
+                              onClick={() => category("clothes")}
+                        >Clothes</Link>
+                    </ListItem>
+                </List>
+                <Divider/>
+            </div>
 
             <div className={classes.main}>
                 {productList}

@@ -8,7 +8,7 @@ import {
 
 const initialState = {
     products: [],
-    singleProduct: {},
+    singleProduct: null,
     singleProductError: null,
     addProductError: null,
     error: null,

@@ -167,10 +167,10 @@ const PostForm = () => {
                             helperText={getFieldError("category")}
                         >
 
-                            <MenuItem value="Cars">Cars</MenuItem>
-                            <MenuItem value="Computers">Computers</MenuItem>
-                            <MenuItem value="Clothes">Clothes</MenuItem>
-                            <MenuItem value="Guns">Guns</MenuItem>
+                            <MenuItem value="cars">Cars</MenuItem>
+                            <MenuItem value="computers">Computers</MenuItem>
+                            <MenuItem value="clothes">Clothes</MenuItem>
+                            <MenuItem value="guns">Guns</MenuItem>
                         </Select>
                     </FormControl>
                     <Button
