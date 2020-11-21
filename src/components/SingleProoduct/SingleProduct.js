@@ -34,8 +34,11 @@ const SingleProduct = props => {
                     title={props.title}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h3" component="h2">
                         {props.title}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h4">
+                        {props.price}
                     </Typography>
                 </CardContent>
             </CardActionArea>

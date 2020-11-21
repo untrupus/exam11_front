@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {addProduct} from "../../store/actions/productsActions";
-import Alert from '@material-ui/lab/Alert';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
@@ -84,6 +83,14 @@ const PostForm = () => {
         dispatch(addProduct(formData));
     };
 
+    const getFieldError = fieldName => {
+        try {
+            return error.errors[fieldName].message;
+        } catch(e) {
+            return undefined;
+        }
+    };
+
     return (
         <Container component="main" maxWidth="lg">
             <CssBaseline />
@@ -91,13 +98,14 @@ const PostForm = () => {
                 <Typography component="h1" variant="h5">
                     Add new product
                 </Typography>
-                {error ? <Alert severity="error">{error.message}</Alert> : null}
                 <form className={classes.form}
                       onSubmit={formSubmit}
                 >
                     <TextField
                         variant="outlined"
                         margin="normal"
+                        error={!!getFieldError("title")}
+                        helperText={getFieldError("title")}
                         fullWidth
                         id="title"
                         label="Title"
@@ -106,7 +114,6 @@ const PostForm = () => {
                         onChange={inputChangeHandler}
                         autoComplete="title"
                         autoFocus
-                        required={true}
                     />
                     <TextField
                         variant="outlined"
@@ -116,6 +123,8 @@ const PostForm = () => {
                         label="Description"
                         type="description"
                         id="description"
+                        error={!!getFieldError("description")}
+                        helperText={getFieldError("description")}
                         value={state.description}
                         onChange={inputChangeHandler}
                         autoComplete="description"
@@ -128,6 +137,8 @@ const PostForm = () => {
                         label="Price"
                         type="price"
                         id="price"
+                        error={!!getFieldError("price")}
+                        helperText={getFieldError("price")}
                         value={state.price}
                         onChange={inputChangeHandler}
                         autoComplete="price"
@@ -152,7 +163,8 @@ const PostForm = () => {
                             onChange={inputChangeHandler}
                             label="Category"
                             name="category"
-                            required={true}
+                            error={!!getFieldError("category")}
+                            helperText={getFieldError("category")}
                         >
 
                             <MenuItem value="Cars">Cars</MenuItem>

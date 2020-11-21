@@ -1,17 +1,55 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import SingleProduct from "../../components/SingleProoduct/SingleProduct";
 import {fetchProducts} from "../../store/actions/productsActions";
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
+import {Link as RouterLink} from "react-router-dom";
+import Link from "@material-ui/core/Link";
+
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     main: {
         marginTop: '20px',
+        marginLeft: '30px',
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: "space-between"
-    }
+        justifyContent: "space-between",
+        width: '70%'
+    },
+    root: {
+        display: 'flex',
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+    },
+    drawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    drawerContainer: {
+        overflow: 'auto',
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+    },
 }));
 
 const Products = () => {
@@ -30,6 +68,7 @@ const Products = () => {
                 key={product._id}
                 id={product._id}
                 title={product.title}
+                price={product.price}
                 image={product.image ?
                     'http://localhost:8000/uploads/' + product.image :
                     "https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png"}
@@ -38,9 +77,35 @@ const Products = () => {
         )
     });
     return (
-        <Container className={classes.main}>
-            {productList}
-        </Container>
+        <div className={classes.root}>
+
+                <Toolbar />
+                <div className={classes.drawerContainer}>
+                    <h4>Categories</h4>
+                    <List>
+                        <ListItem>
+                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
+                        </ListItem>
+                        <ListItem>
+                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
+                        </ListItem>
+                        <ListItem>
+                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
+                        </ListItem>
+                        <ListItem>
+                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
+                        </ListItem>
+                        <ListItem>
+                            <Link component={RouterLink} className={classes.product} to="/addproduct">Add new product</Link>
+                        </ListItem>
+                    </List>
+                    <Divider />
+                </div>
+
+            <div className={classes.main}>
+                {productList}
+            </div>
+        </div>
     );
 };
 

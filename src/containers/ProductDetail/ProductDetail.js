@@ -2,25 +2,28 @@ import React, {useEffect} from 'react';
 import Container from "@material-ui/core/Container";
 import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from '@material-ui/core/styles';
+import {fetchProduct} from "../../store/actions/productsActions";
+import Paper from '@material-ui/core/Paper';
+import Button from "@material-ui/core/Button";
+
 
 const useStyles = makeStyles(() => ({
-    post: {
+    product: {
         padding: "10px",
-        display: "flex",
-        marginTop: "25px"
-    },
-    postInfo: {
-        marginTop: "20px",
-        display: "block",
-        fontSize: "25px"
+        marginTop: "25px",
+        textAlign: 'center'
     },
     img: {
         height: "300px",
         width: "auto",
-        marginRight: "30px"
+        marginRight: "auto",
+        marginLeft: "auto",
+        display: 'block'
     },
-    postInner: {
-        marginTop: "15px"
+    info: {
+        marginTop: "15px",
+        padding: '10px',
+        textAlign: 'left'
     },
     field: {
         width: "65%"
@@ -30,26 +33,52 @@ const useStyles = makeStyles(() => ({
         padding: "17px",
         marginTop: "5px"
     },
-    form: {
-        marginBottom: "50px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
+    submit: {
+        display: 'block',
+        margin: "auto",
+        padding: "15px",
+        width: "100%"
     }
 }));
 
 
-const ProductDetail = () => {
+const ProductDetail = props => {
     const classes = useStyles();
     const product = useSelector(state => state.products.singleProduct);
     const user = useSelector(state => state.users.user);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(fetchProduct(props.match.params.id));
+    }, [dispatch]);
 
 
     return (
-        <Container>
-            detail
+        <Container className={classes.product}>
+            <h1>{product.title}</h1>
+            <img src={product.image ?
+                'http://localhost:8000/uploads/' + product.image :
+                "https://www.allianceplast.com/wp-content/uploads/2017/11/no-image.png"}
+                 alt="product"
+                 className={classes.img}/>
+            <Paper elevation={3} className={classes.info}>
+                <p>Description: {product.description}</p>
+                <p>Price: <b>{product.price}</b></p>
+                <p>Category: {product.category}</p>
+                <p>Seller: {product.user.displayName}</p>
+                {/*<p>Phone: {product.user.phone}</p>*/}
+            </Paper>
+            {/*{(user._id === product.user._id) ?*/}
+            {/*    <Button*/}
+            {/*    type="submit"*/}
+            {/*    variant="contained"*/}
+            {/*    color="primary"*/}
+            {/*    className={classes.submit}*/}
+            {/*    >*/}
+            {/*    Delete*/}
+            {/*    </Button> : null*/}
+            {/*}*/}
+
         </Container>
     );
 };

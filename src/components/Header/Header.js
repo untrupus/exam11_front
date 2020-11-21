@@ -10,6 +10,7 @@ import Link from '@material-ui/core/Link';
 import {useSelector} from "react-redux";
 import UserMenu from "../UserMenu/UserMenu";
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
