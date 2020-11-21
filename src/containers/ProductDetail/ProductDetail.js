@@ -34,7 +34,6 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-
 const ProductDetail = props => {
     const classes = useStyles();
     const product = useSelector(state => state.products.singleProduct);
@@ -49,7 +48,14 @@ const ProductDetail = props => {
         dispatch(deleteProduct(props.match.params.id));
     };
 
-    console.log(user);
+    // if (user && product) {
+    //     if (user.user._id === product.user.id) {
+    //         console.log('asd')
+    //     } else {
+    //         console.log('123')
+    //     }
+    // }
+
     return (
         <Container className={classes.product}>
             {product &&
@@ -68,7 +74,7 @@ const ProductDetail = props => {
                     <p>Phone: {product.user.phone}</p>
                 </Paper>
             </div>}
-            <Button
+            {user ? <Button
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -76,7 +82,7 @@ const ProductDetail = props => {
                 onClick={remove}
             >
                 Delete
-            </Button>
+            </Button> : null}
         </Container>
     );
 };
