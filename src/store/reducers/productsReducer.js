@@ -19,7 +19,7 @@ const initialState = {
 const productsReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_PRODUCTS_SUCCESS:
-            return {...state, products: action.value};
+            return {...state, products: action.value, deleteError: null};
         case FETCH_PRODUCTS_ERROR:
             return {...state, error: action.error};
         case ADD_PRODUCT_ERROR:

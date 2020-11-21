@@ -5,6 +5,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {fetchProduct, deleteProduct} from "../../store/actions/productsActions";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles(() => ({
@@ -31,6 +32,9 @@ const useStyles = makeStyles(() => ({
         margin: "auto",
         padding: "15px",
         width: "100%"
+    },
+    alert: {
+        marginBottom: "10px"
     }
 }));
 
@@ -39,6 +43,7 @@ const ProductDetail = props => {
     const product = useSelector(state => state.products.singleProduct);
     const user = useSelector(state => state.users.user);
     const dispatch = useDispatch();
+    const error = useSelector(state => state.products.deleteError)
 
     useEffect(() => {
         dispatch(fetchProduct(props.match.params.id));
@@ -47,14 +52,6 @@ const ProductDetail = props => {
     const remove = () => {
         dispatch(deleteProduct(props.match.params.id));
     };
-
-    // if (user && product) {
-    //     if (user.user._id === product.user.id) {
-    //         console.log('asd')
-    //     } else {
-    //         console.log('123')
-    //     }
-    // }
 
     return (
         <Container className={classes.product}>
@@ -74,6 +71,7 @@ const ProductDetail = props => {
                     <p>Phone: {product.user.phone}</p>
                 </Paper>
             </div>}
+            {error ? <Alert severity="error" className={classes.alert}>{error.message}</Alert> : null}
             {user ? <Button
                 type="submit"
                 variant="contained"
